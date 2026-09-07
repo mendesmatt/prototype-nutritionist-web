@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriApp — Protótipo Paciente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="stage-label">
+    <div class="eyebrow">Protótipo interativo</div>
+    <h1>App do Paciente — NutriApp</h1>
+    <p>Toque nos cartões da Home, registre uma refeição no Diário Alimentar e teste a personalização de cor no Perfil.</p>
+  </div>
+
+  <div class="phone">
+    <div class="screen-wrap">
+      <div class="app">
+
+        <div class="statusbar">
+          <span>9:41</span>
+          <span style="display:flex;gap:4px;align-items:center;">
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.8" fill="#1F2A24"/><rect x="4.5" y="4" width="3" height="7" rx="0.8" fill="#1F2A24"/><rect x="9" y="2" width="3" height="9" rx="0.8" fill="#1F2A24"/><rect x="13.5" y="0" width="2.5" height="11" rx="0.8" fill="#1F2A24"/></svg>
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0.5" y="0.5" width="15" height="11" rx="2.5" stroke="#1F2A24"/><rect x="2" y="2" width="11.5" height="8" rx="1.5" fill="#1F2A24"/><rect x="16" y="3.5" width="1.5" height="5" rx="0.7" fill="#1F2A24"/></svg>
+          </span>
+        </div>
+
+        <!-- ===================== HOME ===================== -->
+        <div class="screen active" id="screen-home">
+          <div class="top-row">
+            <div class="greeting">
+              <div class="eyebrow">Bom dia</div>
+              <h1>Olá, Paulo 👋</h1>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <div class="icon-btn" onclick="toast('3 novidades do seu nutricionista')"><span class="dot"></span>${ICON.bell}</div>
+              <div class="avatar" onclick="openSheet('sheet-profile')">M</div>
+            </div>
+          </div>
+
+          <div class="ring-card">
+            <div class="ring-wrap">
+              <svg width="64" height="64" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="27" stroke="rgba(255,255,255,0.25)" stroke-width="6" fill="none"/>
+                <circle id="home-ring" cx="32" cy="32" r="27" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="169.6"/>
+              </svg>
+              <div class="pct" id="home-ring-pct">0%</div>
+            </div>
+            <div class="txt">
+              <div class="eyebrow">Resumo do dia</div>
+              <h3 id="home-ring-label">0 de 5 refeições</h3>
+              <p>Continue registrando para seu nutri acompanhar</p>
+            </div>
+          </div>
+
+          <div class="section-label">Acesso rápido</div>
+          <div class="grid">
+            <div class="card" onclick="goTo('screen-diary')">
+              <div class="ic">${ICON.fork}</div>
+              <h4>Diário Alimentar</h4>
+              <p class="preview" id="home-diary-preview">0 refeições hoje</p>
+            </div>
+            <div class="card" onclick="toast('Abrindo lista de compras…')">
+              <span class="badge">6</span>
+              <div class="ic">${ICON.basket}</div>
+              <h4>Lista de Compras</h4>
+              <p class="preview">6 itens pendentes</p>
+            </div>
+            <div class="card" onclick="toast('Abrindo evolução fotográfica…')">
+              <div class="ic">${ICON.camera}</div>
+              <h4>Evolução Fotográfica</h4>
+              <p class="preview">Última foto: há 5 dias</p>
+            </div>
+            <div class="card" onclick="toast('Abrindo avaliações corporais…')">
+              <div class="ic">${ICON.chart}</div>
+              <h4>Avaliações</h4>
+              <p class="preview">−2,4kg no último mês</p>
+            </div>
+            <div class="card wide" onclick="toast('Abrindo chat com Dra. Camila…')">
+              <span class="badge">2</span>
+              <div class="ic">${ICON.chat}</div>
+              <div>
+                <h4>Chat com Profissional</h4>
+                <p class="preview">Dra. Camila: "Ótima evolução essa semana!"</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-label">Documentos e mais</div>
+          <div class="grid">
+            <div class="card" onclick="toast('Abrindo impressos em PDF…')">
+              <div class="ic">${ICON.doc}</div>
+              <h4>Demais Impressos</h4>
+              <p class="preview">2 PDFs disponíveis</p>
+            </div>
+            <div class="card" onclick="toast('Abrindo benefícios…')">
+              <div class="ic">${ICON.gift}</div>
+              <h4>Benefícios</h4>
+              <p class="preview">3 parcerias ativas</p>
+            </div>
+            <div class="card wide" onclick="toast('Central de suporte aberta')">
+              <div class="ic">${ICON.help}</div>
+              <div>
+                <h4>Suporte ao Aplicativo</h4>
+                <p class="preview">Fale com a gente em minutos</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================== DIÁRIO ===================== -->
+        <div class="screen" id="screen-diary">
+          <div class="top-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div class="icon-btn" onclick="goTo('screen-home')">${ICON.back}</div>
+              <h1 style="font-size:18px;margin:0;">Diário Alimentar</h1>
+            </div>
+            <div class="icon-btn" onclick="toast('Filtrar por período')">${ICON.calendar}</div>
+          </div>
+
+          <div class="day-scroll" id="day-scroll"></div>
+
+          <div class="ring-card" style="background:var(--card); color:var(--ink); border:1px solid var(--stroke); box-shadow:var(--shadow);">
+            <div style="flex:1;">
+              <div class="eyebrow" style="color:var(--muted);">Adesão de hoje</div>
+              <h3 style="color:var(--ink);" id="diary-progress-label">0/5 refeições registradas</h3>
+              <div class="progress-bar"><div class="progress-fill" id="diary-progress-fill" style="width:0%;"></div></div>
+              <div class="motivational" id="diary-motivational">Vamos começar? 🌱</div>
+            </div>
+          </div>
+
+          <div class="section-label">Refeições de hoje</div>
+          <div id="meal-list"></div>
+        </div>
+
+      </div>
+
+      <!-- ===================== BOTTOM NAV ===================== -->
+      <div class="bottom-nav" id="bottom-nav">
+        <div class="nav-item active" data-target="screen-home" onclick="navClick(this,'screen-home')">
+          <div class="nav-ic">${ICON.home}</div>Início
+        </div>
+        <div class="nav-item" data-target="screen-diary" onclick="navClick(this,'screen-diary')">
+          <div class="nav-ic">${ICON.fork}</div>Diário
+        </div>
+        <div class="nav-item" data-nav-toast="Abrindo chat…" onclick="navToast(this,'Abrindo chat…')">
+          <div class="nav-ic">${ICON.chat}</div>Chat
+        </div>
+        <div class="nav-item" onclick="openSheet('sheet-profile')">
+          <div class="nav-ic">${ICON.user}</div>Perfil
+        </div>
+      </div>
+
+      <button class="fab" onclick="openMealSheet(null)">${ICON.plus}</button>
+
+      <!-- ===================== SHEET: REGISTRAR REFEIÇÃO ===================== -->
+      <div class="sheet-overlay" id="sheet-meal">
+        <div class="sheet" style="position:relative;">
+          <div class="sheet-handle"></div>
+          <div class="close-x" onclick="closeSheet('sheet-meal')">${ICON.x}</div>
+          <h3>Registrar refeição</h3>
+          <p class="sub">Adicione uma foto e conte o que você comeu</p>
+
+          <div class="meal-choice" id="meal-choice"></div>
+
+          <div class="photo-slot" id="photo-slot" onclick="togglePhoto()">
+            <span id="photo-slot-icon">${ICON.camPlus}</span>
+            <span id="photo-slot-text">Toque para tirar uma foto</span>
+          </div>
+
+          <textarea rows="3" placeholder="O que você comeu? (opcional)" id="meal-note"></textarea>
+
+          <button class="btn-primary" id="save-meal-btn" onclick="saveMeal()">Salvar registro</button>
+        </div>
+      </div>
+
+      <!-- ===================== SHEET: PERFIL ===================== -->
+      <div class="sheet-overlay" id="sheet-profile">
+        <div class="sheet" style="position:relative;">
+          <div class="sheet-handle"></div>
+          <div class="close-x" onclick="closeSheet('sheet-profile')">${ICON.x}</div>
+          <h3>Perfil</h3>
+          <p class="sub">Personalize sua experiência no app</p>
+
+          <div class="section-label" style="margin-top:0;">Cor do aplicativo</div>
+          <div class="color-row" id="color-row"></div>
+
+          <div class="row-item">
+            <div class="l"><span class="ic">${ICON.heart}</span>Sincronizar dados de saúde</div>
+            <div class="toggle" id="toggle-health" onclick="toggleSwitch(this)"><div class="knob"></div></div>
+          </div>
+          <div class="row-item">
+            <div class="l"><span class="ic">${ICON.gift}</span>Ver benefícios</div>
+            <div class="icon-btn" style="width:30px;height:30px;border:none;background:transparent;" onclick="toast('Abrindo benefícios…')">${ICON.chevron}</div>
+          </div>
+          <div class="row-item" style="border-bottom:none;">
+            <div class="l"><span class="ic">${ICON.help}</span>Suporte ao aplicativo</div>
+            <div class="icon-btn" style="width:30px;height:30px;border:none;background:transparent;" onclick="toast('Central de suporte aberta')">${ICON.chevron}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
