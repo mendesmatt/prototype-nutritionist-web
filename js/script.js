@@ -19,10 +19,8 @@ const ICON = {
   chevron:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7A72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>`,
 };
 
-// injeta ícones nos placeholders ${ICON.x}
 document.body.innerHTML = document.body.innerHTML.replace(/\$\{ICON\.(\w+)\}/g, (_,k)=>ICON[k]||'');
 
-/* ---------------- estado ---------------- */
 const meals = [
   {id:'cafe', name:'Café da manhã', time:'—', filled:false, note:''},
   {id:'lancheM', name:'Lanche da manhã', time:'—', filled:false, note:''},
@@ -34,7 +32,6 @@ let activeMealId = null;
 let photoTaken = false;
 const motivations = ['Vamos começar? 🌱','Bom ritmo, continue assim 🌿','Você está no caminho certo 🌱','Quase lá, faltam só algumas 🌿','Dia completo! Parabéns 🎉'];
 
-/* ---------------- navegação por tela ---------------- */
 function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -45,7 +42,6 @@ function goTo(id){
 function navClick(el,id){ goTo(id); }
 function navToast(el,msg){ toast(msg); }
 
-/* ---------------- toast ---------------- */
 let toastTimer;
 function toast(msg){
   const t = document.getElementById('toast');
@@ -55,11 +51,9 @@ function toast(msg){
   toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
 }
 
-/* ---------------- sheets ---------------- */
 function openSheet(id){ document.getElementById(id).classList.add('active'); }
 function closeSheet(id){ document.getElementById(id).classList.remove('active'); }
 
-/* ---------------- dias da semana ---------------- */
 const days = ['DOM','SEG','TER','QUA','QUI','SEX','SAB'];
 function renderDays(){
   const wrap = document.getElementById('day-scroll');
@@ -79,7 +73,6 @@ function renderDays(){
   }
 }
 
-/* ---------------- render refeições ---------------- */
 function renderMeals(){
   const list = document.getElementById('meal-list');
   list.innerHTML='';
@@ -110,7 +103,6 @@ function updateProgress(){
   document.getElementById('diary-motivational').textContent = motivations[done];
   document.getElementById('home-diary-preview').textContent = `${done} refeições hoje`;
 
-  // growth ring na home
   const circumference = 169.6;
   const offset = circumference - (pct/100)*circumference;
   document.getElementById('home-ring').style.strokeDashoffset = offset;
@@ -118,7 +110,6 @@ function updateProgress(){
   document.getElementById('home-ring-label').textContent = `${done} de ${meals.length} refeições`;
 }
 
-/* ---------------- sheet de registro ---------------- */
 function openMealSheet(mealId){
   const wrap = document.getElementById('meal-choice');
   wrap.innerHTML='';
@@ -171,7 +162,6 @@ function saveMeal(){
   toast('Refeição registrada com sucesso 🌿');
 }
 
-/* ---------------- perfil: cores ---------------- */
 const palette = [
   {name:'Verde suave', primary:'#5FA97A', dark:'#2C5F46', tint:'#E7F3EC'},
   {name:'Terra', primary:'#C98A5E', dark:'#7A5136', tint:'#F5E9DE'},
@@ -203,7 +193,6 @@ function toggleSwitch(el){
   toast(el.classList.contains('on') ? 'Sincronização de saúde ativada' : 'Sincronização desativada');
 }
 
-/* ---------------- init ---------------- */
 renderDays();
 renderMeals();
 renderColors();
